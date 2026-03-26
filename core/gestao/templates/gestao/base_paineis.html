@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Painéis Power BI{% endblock %} — Villabox</title>
+  <link rel="stylesheet" href="{% static 'gestao/css/villabox.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="vb-body vb-app">
+  <a class="vb-skip" href="#conteudo-paineis">Pular para o conteúdo principal</a>
+
+  <header class="vb-header vb-header-app" role="banner">
+    <a class="vb-brand" href="{% url 'links:indexLinks' %}">
+      <span class="vb-logo-mark" aria-hidden="true">VB</span>
+      <span class="vb-brand-text">
+        <strong>Villabox Supermercados</strong>
+        <span>Gestão de painéis Power BI</span>
+      </span>
+    </a>
+    <div class="vb-toolbar vb-toolbar-app">
+      {% if request.user.is_authenticated %}
+        <span class="vb-user">{{ request.user.get_username }}</span>
+        <a class="vb-link-btn" href="{% url 'logout' %}">Sair</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="vb-app-body">
+    <aside class="vb-sidebar" aria-label="Navegação do sistema">
+      <div class="vb-sidebar-title">Power BI</div>
+      <nav class="vb-nav">
+        <a href="{% url 'links:indexLinks' %}" {% if request.resolver_match.namespace == 'links' %}class="active"{% endif %}>Meus painéis</a>
+        {% block sidebar_nav %}{% endblock %}
+      </nav>
+    </aside>
+
+    <main id="conteudo-paineis" class="vb-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <footer class="vb-footer" role="contentinfo">
+    <div class="vb-footer-grid">
+      <div>
+        <a href="https://www.villaboxsupermercado.com.br/" target="_blank" rel="noopener noreferrer">Site institucional Villabox</a>
+      </div>
+      <div>
+        <a href="mailto:contato@villaboxsupermercado.com.br">contato@villaboxsupermercado.com.br</a>
+        ·
+        <a href="tel:+5585986306661">(85) 9.8630.6661</a>
+      </div>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

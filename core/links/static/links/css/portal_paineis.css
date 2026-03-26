@@ -1,0 +1,96 @@
+/* Grade de painéis — pré-visualização (imagem ou iframe reduzido) */
+.portal-empty {
+  max-width: 560px;
+}
+
+.portal-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.portal-grid__item {
+  margin: 0;
+}
+
+.portal-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--vb-white);
+  border: 1px solid var(--vb-border);
+  border-radius: var(--vb-radius);
+  box-shadow: var(--vb-shadow);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.portal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(6, 41, 74, 0.18);
+}
+
+.portal-card:focus-visible {
+  outline: 3px solid var(--vb-yellow);
+  outline-offset: 2px;
+}
+
+.portal-card__thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(145deg, #e8eef6 0%, #f5f8fc 100%);
+  overflow: hidden;
+}
+
+.portal-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.portal-card__iframe-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Mostra só o “recorte” central do relatório; sem interação no card */
+.portal-card__iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  border: none;
+  transform: translate(-50%, -50%) scale(0.5);
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.portal-card__body {
+  padding: 0.85rem 1rem 1rem;
+  border-top: 1px solid var(--vb-border);
+}
+
+.portal-card__title {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--vb-text);
+  line-height: 1.35;
+}
+
+.portal-card__hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--vb-blue);
+  font-weight: 600;
+}

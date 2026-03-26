@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar — Villabox | Painéis Power BI</title>
+  <link rel="stylesheet" href="{% static 'gestao/css/villabox.css' %}">
+</head>
+<body class="vb-body">
+  <a class="vb-skip" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <div class="vb-login-wrap">
+    <header class="vb-header" role="banner">
+      <a class="vb-brand" href="https://www.villaboxsupermercado.com.br/" target="_blank" rel="noopener noreferrer">
+        <span class="vb-logo-mark" aria-hidden="true">VB</span>
+        <span class="vb-brand-text">
+          <strong>Villabox Supermercados</strong>
+          <span>Painéis Power BI</span>
+        </span>
+      </a>
+      <p class="vb-header-tag">Sempre perto de você — Cristo Redentor, João XXIII e Quintino Cunha</p>
+    </header>
+
+    <main id="conteudo-principal" class="vb-login-main">
+      <div class="vb-login-card">
+        <div class="vb-login-card-head">
+          <h1>Acesso ao sistema</h1>
+          <p>Entre com seu usuário para gerenciar e visualizar os painéis.</p>
+        </div>
+        <form class="vb-login-form" method="post" action="{% url 'login' %}" autocomplete="on">
+          {% csrf_token %}
+          {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == 'error' %}
+                <div class="vb-alert-error" role="alert">{{ message }}</div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <div class="vb-field">
+            <label for="id_username">Usuário</label>
+            <input type="text" name="username" id="id_username" required autofocus maxlength="150" autocapitalize="none" autocomplete="username">
+          </div>
+          <div class="vb-field">
+            <label for="id_password">Senha</label>
+            <input type="password" name="password" id="id_password" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="vb-btn">Entrar</button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="vb-footer" role="contentinfo">
+      <div class="vb-footer-grid">
+        <div>
+          <strong>Villabox Supermercados</strong><br>
+          <a href="https://www.villaboxsupermercado.com.br/" target="_blank" rel="noopener noreferrer">Site institucional</a>
+        </div>
+        <div>
+          Contato: <a href="tel:+5585986306661">(85) 9.8630.6661</a><br>
+          <a href="mailto:contato@villaboxsupermercado.com.br">contato@villaboxsupermercado.com.br</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

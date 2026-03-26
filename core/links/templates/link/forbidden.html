@@ -1,0 +1,9 @@
+{% extends "gestao/base_paineis.html" %}
+
+{% block title %}Acesso negado{% endblock %}
+
+{% block content %}
+<h1 class="vb-page-title">Acesso negado</h1>
+<p class="vb-page-desc">Você não tem permissão para este painel ou ele não está liberado aos seus grupos.</p>
+<p><a href="{% url 'links:indexLinks' %}">Voltar aos meus painéis</a></p>
+{% endblock %}

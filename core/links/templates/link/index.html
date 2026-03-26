@@ -1,0 +1,52 @@
+{% extends "gestao/base_paineis.html" %}
+{% load static %}
+
+{% block title %}Meus painéis{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'links/css/portal_paineis.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="vb-page-title">Painéis disponíveis</h1>
+<p class="vb-page-desc">
+  Lista conforme os grupos do seu perfil:
+  {% for g in grupos %}<strong>{{ g.name }}</strong>{% if not forloop.last %}, {% endif %}{% empty %}<em>nenhum grupo atribuído</em>{% endfor %}.
+  Clique em um painel para abrir em tela cheia.
+</p>
+
+{% if not links %}
+  <div class="vb-panel-placeholder portal-empty">
+    <p style="margin:0;"><strong>Nenhum painel liberado</strong></p>
+    <p style="margin:0.5rem 0 0;font-size:0.9rem;">Peça ao administrador para vincular seus grupos aos painéis em <em>Acessos</em>.</p>
+  </div>
+{% else %}
+  <ul class="portal-grid" role="list">
+    {% for item in links %}
+    <li class="portal-grid__item">
+      <a class="portal-card" href="{% url 'links:painel' item.id %}">
+        <div class="portal-card__thumb" aria-hidden="true">
+          {% if item.thumbnail_url %}
+            <img src="{{ item.thumbnail_url }}" alt="" loading="lazy" decoding="async">
+          {% else %}
+            <div class="portal-card__iframe-wrap">
+              <iframe
+                class="portal-card__iframe"
+                src="{{ item.link }}"
+                title=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                tabindex="-1"></iframe>
+            </div>
+          {% endif %}
+        </div>
+        <div class="portal-card__body">
+          <span class="portal-card__title">{{ item.desc }}</span>
+          <span class="portal-card__hint">Abrir painel</span>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

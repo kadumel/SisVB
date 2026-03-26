@@ -1,0 +1,48 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.views.decorators.http import require_http_methods
+
+
+def _safe_next_url(request, candidate: str) -> str:
+    if (
+        candidate
+        and url_has_allowed_host_and_scheme(
+            candidate,
+            allowed_hosts={request.get_host()},
+            require_https=request.is_secure(),
+        )
+    ):
+        return candidate
+    return ""
+
+
+@require_http_methods(["GET", "POST"])
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("links:indexLinks")
+
+    raw_next = request.POST.get("next") or request.GET.get("next") or ""
+    next_url = _safe_next_url(request, raw_next)
+
+    if request.method == "POST":
+        username = (request.POST.get("username") or "").strip()
+        password = request.POST.get("password") or ""
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if next_url:
+                return redirect(next_url)
+            return redirect("links:indexLinks")
+        messages.error(request, "Usuário ou senha inválidos.")
+
+    return render(request, "gestao/login.html", {"next": next_url})
+
+
+@require_http_methods(["GET", "POST"])
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
+
