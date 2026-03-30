@@ -1,0 +1,18 @@
+# Django
+Django>=5.0,<6.1
+django-jazzmin>=3.0
+
+# Servidor WSGI e arquivos estáticos (produção / Railway)
+gunicorn>=22.0
+whitenoise>=6.6
+
+# Configuração
+python-dotenv>=1.0
+dj-database-url>=2.1
+
+# PostgreSQL (Railway / DATABASE_URL)
+psycopg2-binary>=2.9
+
+# SQL Server (desenvolvimento local — ODBC no Windows)
+mssql-django>=1.4
+pyodbc>=5.0

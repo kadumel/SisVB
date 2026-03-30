@@ -1,0 +1,12 @@
+# Railway — config as code
+# https://docs.railway.com/reference/config-as-code
+#
+# O comando de start usa o Procfile na raiz (web: gunicorn ...).
+# No painel: adicione PostgreSQL e variáveis DJANGO_* (ver core/.env.example).
+
+[build]
+builder = "nixpacks"
+buildCommand = "cd core && python manage.py collectstatic --noinput"
+
+[deploy]
+releaseCommand = "cd core && python manage.py migrate --noinput"
