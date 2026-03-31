@@ -21,8 +21,14 @@
     </a>
     <div class="vb-toolbar vb-toolbar-app">
       {% if request.user.is_authenticated %}
-        <span class="vb-user">{{ request.user.get_username }}</span>
-        <a class="vb-link-btn" href="{% url 'logout' %}">Sair</a>
+        <div class="vb-user-menu" tabindex="0">
+          <span class="vb-user-name">{{ request.user.get_username }}</span>
+          <span class="vb-user-caret">▾</span>
+          <div class="vb-user-dropdown">
+            <a href="{% url 'change_password' %}">Alterar senha</a>
+            <a href="{% url 'logout' %}">Sair</a>
+          </div>
+        </div>
       {% endif %}
     </div>
   </header>
